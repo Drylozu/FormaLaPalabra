@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+    <script>
+        const url = new URL(window.location);
+        url.pathname = '/ws';
+        url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+
+        let connectInterval;
+        function connect() {
+            var ws = new WebSocket(url);
+            window.ws = ws;
+            ws.onopen = () => {
+                if (connectInterval) {
+                    clearInterval(connectInterval);
+                    connectInterval = null;
+                }
+                console.log('[WS]: Connected');
+            };
+
+            ws.onmessage = ({ data }) => {
+                console.log(data);
+            };
+
+            ws.onclose = () => {
+                if (!connectInterval)
+                    connectInterval = setInterval(() => {
+                        console.log('[WS]: Trying to reconnect...');
+                        connect();
+                    }, 5e3);
+                console.log('[WS]: Disconnected');
+            };
+        }
+
+        connect();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
