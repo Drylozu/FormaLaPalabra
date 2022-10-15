@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"time"
@@ -110,7 +109,6 @@ func HandleWS(game *Game) func(*fiber.Ctx) error {
 				continue
 			}
 
-			fmt.Printf("%#v\n", decoded)
 			if decoded.StartTimer {
 				game.Time = defaultDuration
 				game.Paused = false
@@ -126,6 +124,14 @@ func HandleWS(game *Game) func(*fiber.Ctx) error {
 
 			if decoded.Word != "" {
 				game.Word = decoded.Word
+
+				if out, err = sonic.Marshal(map[string]string{
+					"word": game.Word,
+				}); err == nil {
+					for _, conn := range game.Clients {
+						conn.WriteMessage(1, out)
+					}
+				}
 			}
 
 			if decoded.Wrong || decoded.Correct {
