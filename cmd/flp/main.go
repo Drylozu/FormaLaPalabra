@@ -7,16 +7,16 @@ import (
 	"github.com/Drylozu/FormaLaPalabra/pkg/server"
 )
 
-var help = flag.Bool("help", false, "Shows the help message")
-var public = flag.String("public", "./public/", "Specifies the public/ directory")
-var secret = flag.String("secret", "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ", "Specifies the secret key to auth")
-var address = flag.String("address", "127.0.0.1:3000", "Specifies the address to listen")
+var help = flag.Bool("help", false, "Muestra el mensaje de ayuda")
+var public = flag.String("public", "./public/", "Especifica la carpeta public/")
+var secret = flag.String("secret", "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ", "Especifica la contraseña del servidor")
+var address = flag.String("address", "0.0.0.0:3000", "Especifica la dirección de escucha")
 
 func main() {
 	flag.Parse()
 
 	if *help {
-		fmt.Println("Formá la palabra\n\nOptions:")
+		fmt.Println("Formá la palabra\n\nOpciones:")
 		flag.PrintDefaults()
 		return
 	}
