@@ -1,11 +1,19 @@
-FROM golang:1.19
+FROM golang:1.19 AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -v -o /usr/local/bin/app ./...
+RUN CGO_ENABLED=0 go build -v ./cmd/flp
 
-CMD ["flp"]
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/flp ./
+
+RUN ls -al
+
+CMD ["./flp"]

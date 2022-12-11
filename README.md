@@ -21,11 +21,11 @@ Es un servidor HTTP hecho en **Go** ([fiber](https://gofiber.io)) con WebSockets
 - Clonar (descargar) este repositorio
 
 ### Docker
-- Instalar **[Docker](https://www.docker.com/)**.
+- Instalar **[Docker](https://www.docker.com/)**. Peso de imagen de Docker: **17.1MB**.
 ```sh
 docker build -t forma-la-palabra .
 
-docker run -dp 3000:3000 forma-la-palabra flp --secret "texto secreto para autenticación"
+docker run -dp 3000:3000 forma-la-palabra ./flp --secret "texto secreto para autenticación"
 ```
 
 ### En tu máquina
