@@ -14,6 +14,4 @@ WORKDIR /app
 
 COPY --from=builder /app/flp ./
 
-RUN ls -al
-
 CMD ["./flp"]
