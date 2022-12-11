@@ -42,19 +42,18 @@ El siguiente fragmento de código JSON contiene las propiedades de comandos de c
 
 ### Cliente
 Todos los clientes conectados al servidor reciben un JSON con los siguientes eventos:
+
 **Nueva palabra**
 ```json
-{
-    "word": "nueva palabra"
-}
+{ "word": "nueva palabra" }
 ```
 - `word` string - La nueva palabra
 
 **Tick** (el contador avanza en 1)
 ```json
-{ "time": 1}
+{ "time": 1 }
 ```
-- `time` int - El tiempo que avanzó
+- `time` int - El nuevo tiempo del juego
 
 **Pantalla**
 ```json
